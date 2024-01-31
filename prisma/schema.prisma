@@ -1,0 +1,52 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch"]
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+enum Role {
+  user
+  admin
+}
+
+model User {
+  id                String      @id @default(cuid())
+  Role              Role        @default(user)
+  name              String
+  email             String      @unique
+  password          String
+  emailVerified     Boolean?
+  emailVerifiedDate DateTime?
+  image             String?
+  Resources         Resources[]
+  accepted          Boolean     @default(false)
+
+  @@index([id])
+}
+
+model NewsLetter {
+  id    String @id @default(cuid())
+  email String
+}
+
+model Resources {
+  id          Int    @id @default(autoincrement())
+  title       String
+  author      String
+  url         String
+  description String
+  image       String
+  type        String
+  user        User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      String
+
+  @@index([id])
+  @@index([userId])
+  @@index([title])
+  @@index([type])
+}
