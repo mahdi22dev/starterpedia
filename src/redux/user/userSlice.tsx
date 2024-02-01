@@ -1,4 +1,14 @@
+import { userResourceCardTypes } from "@/lib/types";
 import { createSlice } from "@reduxjs/toolkit";
+
+interface userSliceTypes {
+  card: userResourceCardTypes;
+  isSerachModalOpen: Boolean;
+  isNavbarOpen: Boolean;
+  isBoxchecked: Boolean;
+  isResourceOpen: Boolean;
+  isResourceCardOpen: Boolean;
+}
 
 export const userSlice = createSlice({
   name: "user",
@@ -7,7 +17,8 @@ export const userSlice = createSlice({
     isNavbarOpen: false,
     isBoxchecked: false,
     isResourceOpen: false,
-    isRemoveResourceOpen: false,
+    isResourceCardOpen: false,
+    resourceCardData: {},
   },
   reducers: {
     toggleSerchModal: (state) => {
@@ -34,11 +45,14 @@ export const userSlice = createSlice({
     closeisResourceOpen: (state) => {
       state.isResourceOpen = false;
     },
-    openisRemoveResource: (state) => {
-      state.isRemoveResourceOpen = true;
+    openisResourceCardOpen: (state) => {
+      state.isResourceCardOpen = true;
     },
-    closeisRemoveResource: (state) => {
-      state.isRemoveResourceOpen = false;
+    closeisResourceCardOpen: (state) => {
+      state.isResourceCardOpen = false;
+    },
+    updateCardResource: (state, action) => {
+      state.resourceCardData = action;
     },
   },
 });
@@ -52,8 +66,9 @@ export const {
   closeisBoxchecked,
   openisResourceOpen,
   closeisResourceOpen,
-  openisRemoveResource,
-  closeisRemoveResource,
+  openisResourceCardOpen,
+  closeisResourceCardOpen,
+  updateCardResource,
 } = userSlice.actions;
 
 export default userSlice.reducer;

@@ -3,11 +3,11 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { userAuthRigsterSchema } from "@/lib/validation";
-import FormInput from "../ui/FormInput";
 import ClipLoader from "react-spinners/ClipLoader";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { RegisterFormData } from "@/lib/types";
+import FormInput from "./FormInput";
 
 const AuthRegisterForm = (): JSX.Element => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -101,7 +101,7 @@ const AuthRegisterForm = (): JSX.Element => {
           {errors.confirm_password.message}
         </p>
       )}
-      {/* @ts-ignore */}
+
       <Button
         variant="default"
         className="flex gap-2"

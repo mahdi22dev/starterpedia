@@ -65,9 +65,18 @@ export const getUsersResource = async () => {
     const data = await prisma.resources.findMany({ where: { userId: userId } });
 
     if (data) {
-      revalidatePath("/");
+      revalidatePath("/home");
       return data;
     }
+  } catch (error) {
+  } finally {
+    await prisma.$disconnect();
+  }
+};
+
+export const removeResources = async (resourceId: number) => {
+  try {
+    await prisma.resources.delete({ where: { id: resourceId } });
   } catch (error) {
   } finally {
     await prisma.$disconnect();

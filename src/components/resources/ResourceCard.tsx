@@ -12,29 +12,17 @@ import { badgeVariants } from "../ui/badge";
 import { Card } from "../ui/card";
 import { userResourceCardTypes } from "@/lib/types";
 import { ResourceRemoveAlert } from "./ResourceRemoveAlert";
-import {
-  openisResourceCardOpen,
-  updateCardResource,
-} from "@/redux/user/userSlice";
 
-export default function ResourceCardItem({
+export default function ResourceCard({
   card,
 }: {
   card: userResourceCardTypes;
 }) {
   const dispatch: AppDispatch = useDispatch();
-
-  const onClick = () => {
-    dispatch(updateCardResource(card));
-    dispatch(openisResourceCardOpen());
-  };
   const pathname = usePathname();
   return (
-    <div className="relative">
-      <Card
-        className="h-96 cursor-pointer flex justify-between flex-col"
-        onClick={() => onClick()}
-      >
+    <div className="relative ">
+      <Card className="h-96 cursor-pointer flex justify-between flex-col">
         <div className="relative w-full h-[75%] ">
           <Image
             src={
@@ -75,28 +63,3 @@ export default function ResourceCardItem({
     </div>
   );
 }
-// const tags = [
-//   { id: 1, name: "php" },
-//   { id: 1, name: "programming" },
-//   { id: 1, name: "tool" },
-// ];
-{
-  /* <div className="flex justify-between items-center gap-1 absolute top-3 left-3 z-50">
-        {tags.map((tag) => {
-          return <TagsItem key={tag.id} tag={tag} />;
-        })}
-      </div> */
-}
-
-// const TagsItem = ({ tag }) => {
-//   return (
-//     // @ts-ignore
-//     <Button
-//       asChild
-//       variant="default"
-//       className="text-[10px] font-light pt-1 pl-1 pr-1 pb-1"
-//     >
-//       <Link href={"/category?c=" + tag.name}>{tag.name}</Link>
-//     </Button>
-//   );
-// };

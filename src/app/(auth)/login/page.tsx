@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { Metadata } from "next";
 import Link from "next/link";
 import AuthForm from "@/components/auth/AuthLoginForm";
+
 export const metadata: Metadata = {
   title: "Login",
   description: "Login to your account",

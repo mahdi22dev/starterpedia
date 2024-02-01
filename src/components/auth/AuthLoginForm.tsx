@@ -5,10 +5,10 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { userAuthLoginSchema } from "@/lib/validation";
 import { LogInFormData } from "@/lib/types";
-import FormInput from "../ui/FormInput";
 import ClipLoader from "react-spinners/ClipLoader";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
+import FormInput from "./FormInput";
 
 const AuthLoginForm = (): JSX.Element => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -66,7 +66,7 @@ const AuthLoginForm = (): JSX.Element => {
       {errors?.password && (
         <p className="px-1 text-xs text-red-600">{errors.password.message}</p>
       )}
-      {/* @ts-ignore */}
+
       <Button
         variant="default"
         className="flex gap-2"

@@ -1,5 +1,4 @@
 "use client";
-
 import React from "react";
 import { Label } from "../ui/label";
 import { cn } from "@/lib/utils";
@@ -25,7 +24,7 @@ export default function FormInput({
 }: InputProps): JSX.Element {
   return (
     <div className="grid w-full max-w-sm items-center gap-1.5">
-      <Label htmlFor={type}>{text}</Label>
+      <Label htmlFor={text}>{text}</Label>
       <Input
         className={cn(
           "h-10 w-[300px] bg-whiteplaceholder:text-black placeholder:text-opacity-50",

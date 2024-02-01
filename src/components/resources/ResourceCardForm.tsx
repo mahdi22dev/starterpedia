@@ -9,14 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../ui/select";
-import { ResourcesTypes } from "@/lib/data";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { ResourceFormData } from "@/lib/types";
@@ -51,7 +44,6 @@ export default function ResourceCardForm(): JSX.Element {
   const onSubmit = async (data: ResourceFormData) => {
     const resourceRequestData = { ...data, type: selectValue };
     setIsLoading(true);
-    console.log(JSON.stringify(resourceRequestData));
 
     try {
       await saveNewResource(JSON.stringify(resourceRequestData));
@@ -161,7 +153,7 @@ export default function ResourceCardForm(): JSX.Element {
             )}
           </div>
 
-          <div className="flex flex-col space-y-1.5">
+          {/* <div className="flex flex-col space-y-1.5">
             <Label htmlFor="framework">Resource Type</Label>
             <Select
               onValueChange={(value) => setSelectValue(value)}
@@ -180,7 +172,7 @@ export default function ResourceCardForm(): JSX.Element {
                 })}
               </SelectContent>
             </Select>
-          </div>
+          </div> */}
           <CardFooter className="flex justify-between p-0 mt-5">
             <Button variant="outline" onClick={closeModal}>
               Cancel

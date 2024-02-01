@@ -8,7 +8,7 @@ import SignOutButton from "./SignOutButton";
 import SubmitButton from "./SubmitButton";
 import { navLinks } from "@/lib/data";
 import { cn } from "@/lib/utils";
-import { buttonVariants } from "../ui/button";
+import { Button, buttonVariants } from "../ui/button";
 
 export async function Navbar(): Promise<JSX.Element> {
   const session = await getServerSession(authOptions);
@@ -38,12 +38,11 @@ export async function Navbar(): Promise<JSX.Element> {
         {session ? (
           <SignOutButton />
         ) : (
-          <Link
-            href={"/login"}
-            className={cn(buttonVariants({ variant: "outline" }), "shadow-md")}
-          >
-            Sign In
-          </Link>
+          <Button asChild variant={"default"}>
+            <Link href={"/login"} className={"shadow-md"}>
+              Sign In
+            </Link>
+          </Button>
         )}
       </div>
     </nav>

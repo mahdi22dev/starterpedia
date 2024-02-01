@@ -26,7 +26,7 @@ export default async function Register(): Promise<JSX.Element> {
       </div>
       <AuthRegisterForm />
       <p className="px-8 text-center text-sm  text-opacity-80 hover:underline hover:underline-offset-4">
-        <Link href="/login">Don&apos;t have an account? Sign Up</Link>
+        <Link href="/login">Don&apos;t have an account? Sign In</Link>
       </p>{" "}
     </main>
   );
