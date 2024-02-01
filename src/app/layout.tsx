@@ -6,8 +6,14 @@ import Modal from "@/components/modals/Modal";
 import ResNavbar from "@/components/header/ResNavbar";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/services/auth/auth.service";
-import { inter, satoshi } from "@/styles/fonts";
-import { cn } from "@/lib/utils";
+import { Kanit } from "next/font/google";
+
+const damion = Kanit({
+  weight: ["400"],
+  style: ["normal"],
+  preload: false,
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "Starterpedia",
@@ -21,18 +27,11 @@ export default async function RootLayout({
 }): Promise<JSX.Element> {
   const session = await getServerSession(authOptions);
   return (
-    <html
-      lang="en"
-      className={cn(
-        satoshi.variable,
-        inter.variable,
-        "bg-[#FFFFFC] font-[var(--font-satoshi)]"
-      )}
-    >
+    <html lang="en" className={damion.className}>
       <Providers>
         {/*@ts-ignore */}
 
-        <body className={inter.className}>
+        <body>
           {/*@ts-ignore */}
           <Modal />
           {/*@ts-ignore */}

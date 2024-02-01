@@ -1,20 +1,11 @@
-task: 
-card: In resources card, we can show image- title, categories, 
-bookmark, and new , 
-featured and ad tag on it at the right side above share functionality
+
 
 1- resources : add resources form
-card: In resources card, we can show image- title, categories, bookmark, and new , featured and ad tag on it at the right side above share functionality
+card: generate static pages for each card
 pagination
 search : https://www.prisma.io/docs/orm/prisma-client/queries/full-text-search, https://www.prisma.io/docs/orm/prisma-client/queries/pagination
-leaderboard
-footer
 change fonts
 
 2- admin dashboard
 delete view accept
 render subscribers to email
-
-
-
-deadline: 3/2/2023
