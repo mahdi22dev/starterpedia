@@ -40,16 +40,16 @@ function Modal() {
       </div>
     );
   }
-  if (isResourceCardOpen) {
-    return (
-      <div
-        onClick={(e) => closeModal(e)}
-        className="fixed top-0 left-0 w-full h-full flex items-center justify-center backdrop-filter backdrop-blur-md z-[50]"
-      >
-        <ResourceCard card={resourceCardData} />
-      </div>
-    );
-  }
+  // if (isResourceCardOpen) {
+  //   return (
+  //     <div
+  //       onClick={(e) => closeModal(e)}
+  //       className="fixed top-0 left-0 w-full h-full flex items-center justify-center backdrop-filter backdrop-blur-md z-[50]"
+  //     >
+  //       <ResourceCard card={resourceCardData} />
+  //     </div>
+  //   );
+  // }
 }
 
 export default Modal;

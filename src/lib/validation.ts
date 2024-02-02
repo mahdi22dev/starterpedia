@@ -41,7 +41,8 @@ const MAX_FILE_SIZE = 5242880;
 
 export const resourceFormSchema = z.object({
   title: z.string().min(1, { message: "Resource title is required" }),
-  author: z.string().min(1, { message: "Author name is required" }),
+  author: z.string().min(1, { message: "Author profile is required" }),
+  name: z.string().min(1, { message: "Author name is required" }),
   url: z.string().min(1, { message: "url is required" }),
   description: z
     .string()

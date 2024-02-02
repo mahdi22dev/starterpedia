@@ -23,6 +23,14 @@ import { saveNewResource } from "@/server-actions/resources-acions";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Textarea } from "../ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
+import { ResourcesTypes } from "@/lib/data";
 
 export default function ResourceCardForm(): JSX.Element {
   const [selectValue, setSelectValue] = useState<string>("software");
@@ -90,9 +98,23 @@ export default function ResourceCardForm(): JSX.Element {
             )}
           </div>
           <div className="flex flex-col space-y-1.5">
-            <Label htmlFor="author">Profile Link</Label>
+            <Label htmlFor="author">Author name</Label>
             <Input
-              placeholder="Your Social Profile Link"
+              placeholder="Your name"
+              {...register("name")}
+              id="name"
+              type="text"
+              name="name"
+              disabled={isLoading}
+            />
+            {errors?.name && (
+              <p className="px-1 text-xs text-red-600">{errors.name.message}</p>
+            )}
+          </div>
+          <div className="flex flex-col space-y-1.5">
+            <Label htmlFor="author">Profile link</Label>
+            <Input
+              placeholder="Your social profile link"
               {...register("author")}
               id="author"
               type="text"
@@ -153,7 +175,7 @@ export default function ResourceCardForm(): JSX.Element {
             )}
           </div>
 
-          {/* <div className="flex flex-col space-y-1.5">
+          <div className="flex flex-col space-y-1.5">
             <Label htmlFor="framework">Resource Type</Label>
             <Select
               onValueChange={(value) => setSelectValue(value)}
@@ -172,7 +194,7 @@ export default function ResourceCardForm(): JSX.Element {
                 })}
               </SelectContent>
             </Select>
-          </div> */}
+          </div>
           <CardFooter className="flex justify-between p-0 mt-5">
             <Button variant="outline" onClick={closeModal}>
               Cancel

@@ -5,35 +5,32 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { LuExternalLink } from "react-icons/lu";
 import { useDispatch } from "react-redux";
-import { AppDispatch } from "@/redux/store";
 import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
 import { badgeVariants } from "../ui/badge";
 import { Card } from "../ui/card";
 import { userResourceCardTypes } from "@/lib/types";
 import { ResourceRemoveAlert } from "./ResourceRemoveAlert";
-import {
-  openisResourceCardOpen,
-  updateCardResource,
-} from "@/redux/user/userSlice";
+import { useRouter } from "next/navigation";
 
 export default function ResourceCardItem({
   card,
 }: {
   card: userResourceCardTypes;
 }) {
-  const dispatch: AppDispatch = useDispatch();
+  console.log(card);
+
+  const router = useRouter();
 
   const onClick = () => {
-    dispatch(updateCardResource(card));
-    dispatch(openisResourceCardOpen());
+    router.push("/" + card.id, { scroll: false });
   };
   const pathname = usePathname();
   return (
     <div className="relative">
       <Card
         className="h-96 cursor-pointer flex justify-between flex-col"
-        onClick={() => onClick()}
+        onClick={onClick}
       >
         <div className="relative w-full h-[75%] ">
           <Image
@@ -48,7 +45,10 @@ export default function ResourceCardItem({
           />
         </div>
 
-        <div className="w-full flex justify-between items-center p-2">
+        <div
+          className="w-full flex justify-between items-center p-2"
+          onClick={(e) => e.stopPropagation()}
+        >
           <Button asChild variant="outline">
             <Link href={"/type?t=" + card.type}>{card.type}</Link>
           </Button>

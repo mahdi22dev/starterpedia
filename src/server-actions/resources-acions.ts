@@ -5,14 +5,16 @@ import { prisma } from "../lib/prisma";
 import { authOptions } from "@/services/auth/auth.service";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { seed } from "./seed";
 
 export const resourcesPagination = async () => {
   try {
-    const data = await prisma.resources.findMany({ where: {} });
-    if (data) {
-      revalidatePath("/");
-      return data;
-    }
+    const data = await prisma.resources.findMany({
+      where: {},
+      select: { id: true, title: true, image: true, type: true },
+    });
+
+    return data;
   } catch (error) {
   } finally {
     await prisma.$disconnect();
@@ -35,10 +37,10 @@ export const saveNewResource = async (data: any) => {
         data: {
           title: DataObject.title,
           author: DataObject.author,
+          name: DataObject.name,
           url: DataObject.url,
           description: DataObject.description,
           image: "image bytes",
-
           type: DataObject.type,
           user: {
             connect: {
@@ -62,7 +64,15 @@ export const getUsersResource = async () => {
     }
     //@ts-ignore
     const userId = session?.user?.id;
-    const data = await prisma.resources.findMany({ where: { userId: userId } });
+    const data = await prisma.resources.findMany({
+      where: { userId: userId },
+      select: {
+        id: true,
+        title: true,
+        image: true,
+        type: true,
+      },
+    });
 
     if (data) {
       revalidatePath("/home");
@@ -76,8 +86,30 @@ export const getUsersResource = async () => {
 
 export const removeResources = async (resourceId: number) => {
   try {
+    const session = await getServerSession(authOptions);
+    if (!session) {
+      return redirect("/login");
+    }
     await prisma.resources.delete({ where: { id: resourceId } });
-  } catch (error) {
+  } catch (error: any) {
+    console.log(error.message);
+  } finally {
+    await prisma.$disconnect();
+  }
+};
+
+export const getResourceById = async (resourceId: number) => {
+  try {
+    const session = await getServerSession(authOptions);
+    if (!session) {
+      return redirect("/login");
+    }
+    const data = await prisma.resources.findFirst({
+      where: { id: resourceId },
+    });
+    return data;
+  } catch (error: any) {
+    console.log(error.message);
   } finally {
     await prisma.$disconnect();
   }

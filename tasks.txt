@@ -1,11 +1,9 @@
 
 
 1- resources : add resources form
-card: generate static pages for each card
 pagination
 search : https://www.prisma.io/docs/orm/prisma-client/queries/full-text-search, https://www.prisma.io/docs/orm/prisma-client/queries/pagination
-change fonts
 
-2- admin dashboard
+2- admin dashboard (later)
 delete view accept
 render subscribers to email

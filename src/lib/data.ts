@@ -1,6 +1,7 @@
 export const navLinks = [
   { id: 1, name: "home" },
-  { id: 3, name: "about" },
+  { id: 2, name: "about" },
+  { id: 3, name: "leaderboard" },
 ];
 export const ResourcesTypes = [
   { id: 1, type: "Tools" },

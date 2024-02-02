@@ -48,12 +48,12 @@ function ResNavLinks(session: any): JSX.Element {
           <div className="flex flex-col gap-2 mt-5 items-center">
             <SubmitButton className="w-full rounded-none" />
             {session?.session?.session ? (
-              <SignOutButton className="w-full" />
+              <SignOutButton className="w-full rounded-none" />
             ) : (
               <Button
                 asChild
                 variant={"default"}
-                className="w-full rounded-none "
+                className="w-full rounded-none"
               >
                 <Link href={"/login"} className={"shadow-md"}>
                   Sign In

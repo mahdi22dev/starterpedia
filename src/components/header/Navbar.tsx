@@ -1,14 +1,11 @@
 import Link from "next/link";
 import { authOptions } from "@/services/auth/auth.service";
-
 import { getServerSession } from "next-auth";
 import Image from "next/image";
 import SignOutButton from "./SignOutButton";
-
 import SubmitButton from "./SubmitButton";
 import { navLinks } from "@/lib/data";
-import { cn } from "@/lib/utils";
-import { Button, buttonVariants } from "../ui/button";
+import { Button } from "../ui/button";
 
 export async function Navbar(): Promise<JSX.Element> {
   const session = await getServerSession(authOptions);
@@ -21,7 +18,11 @@ export async function Navbar(): Promise<JSX.Element> {
       <div className="gap-2 capitalize flex">
         {navLinks.map((link) => {
           return (
-            <Link href={"/home"} className="hover:opacity-60" key={link.id}>
+            <Link
+              href={"/" + link.name}
+              className="hover:opacity-60"
+              key={link.id}
+            >
               {link.name}
             </Link>
           );

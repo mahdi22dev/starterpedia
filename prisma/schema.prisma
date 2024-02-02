@@ -37,6 +37,7 @@ model NewsLetter {
 model Resources {
   id          Int    @id @default(autoincrement())
   title       String
+  name        String
   author      String
   url         String
   description String
