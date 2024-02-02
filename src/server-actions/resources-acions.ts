@@ -5,11 +5,15 @@ import { prisma } from "../lib/prisma";
 import { authOptions } from "@/services/auth/auth.service";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { seed } from "./seed";
 
-export const resourcesPagination = async () => {
+export const resourcesPagination = async (page: number) => {
+  console.log(page);
+
+  const pageSize = 6;
   try {
     const data = await prisma.resources.findMany({
+      take: pageSize,
+      skip: page * pageSize,
       where: {},
       select: { id: true, title: true, image: true, type: true },
     });

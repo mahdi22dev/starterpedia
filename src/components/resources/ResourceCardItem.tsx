@@ -18,8 +18,6 @@ export default function ResourceCardItem({
 }: {
   card: userResourceCardTypes;
 }) {
-  console.log(card);
-
   const router = useRouter();
 
   const onClick = () => {

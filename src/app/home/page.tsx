@@ -4,7 +4,6 @@ import SearchButton from "@/components/search/SearchButton";
 import { ResourcesTypes } from "@/lib/data";
 import { Button } from "@/components/ui/button";
 import RrsourcesContainer from "@/components/resources/RrsourcesContainer";
-import { seed } from "@/server-actions/seed";
 
 export default async function Home({
   searchParams,
@@ -19,9 +18,7 @@ export default async function Home({
   //       type.type
   // }
 
-  const page = searchParams.p; // page represent the currect cursor
-  const skip = searchParams.q;
-  const take = searchParams.q;
+  const page = searchParams.p || 0;
   return (
     <main className="w-full space-y-5 min-h-[100vh] p-5 max-w-7xl mx-auto">
       <NewsLetterForm />
@@ -43,7 +40,7 @@ export default async function Home({
                 asChild
                 variant={type.type == searchParams.type ? "default" : "outline"}
               >
-                <Link href={"http://localhost:3000/"} key={type.id}>
+                <Link href="http://localhost:3000/" key={type.id}>
                   {type.type}
                 </Link>
               </Button>
@@ -53,7 +50,7 @@ export default async function Home({
         <SearchButton />
       </div>
 
-      <RrsourcesContainer page={0} skip={0} />
+      <RrsourcesContainer page={page} />
     </main>
   );
 }

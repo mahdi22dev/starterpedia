@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { saveNewResource } from "@/server-actions/resources-acions";
+import { nanoid } from "nanoid";
 
 function SubmitButton({ className }: { className?: string }) {
   const dispatch: AppDispatch = useDispatch();
@@ -13,7 +14,7 @@ function SubmitButton({ className }: { className?: string }) {
     dispatch(openisResourceOpen());
   };
   const resourceRequestData = {
-    title: "Best resource",
+    title: "Best resource n:" + nanoid(),
     url: "",
     name: "Mahdi Idrissi",
     author: "Profile Link",
