@@ -6,14 +6,43 @@ import { authOptions } from "@/services/auth/auth.service";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
-export const resourcesPagination = async (page: number) => {
+export const resourcesPagination = async (page: number, type: string) => {
   console.log(page);
-
+  console.log(type);
   const pageSize = 6;
+
+  let data;
+  try {
+    if (type == "all") {
+      data = await prisma.resources.findMany({
+        take: pageSize,
+        skip: page * pageSize,
+        where: {},
+        select: { id: true, title: true, image: true, type: true },
+      });
+    } else {
+      data = await prisma.resources.findMany({
+        take: pageSize,
+        skip: page * pageSize,
+        where: {
+          ...(type && { type }),
+        },
+        select: { id: true, title: true, image: true, type: true },
+      });
+    }
+
+    return data;
+  } catch (error) {
+  } finally {
+    await prisma.$disconnect();
+  }
+};
+
+export const homeResources = async () => {
   try {
     const data = await prisma.resources.findMany({
-      take: pageSize,
-      skip: page * pageSize,
+      take: 6,
+      skip: 0,
       where: {},
       select: { id: true, title: true, image: true, type: true },
     });

@@ -28,8 +28,11 @@ export async function Navbar(): Promise<JSX.Element> {
           );
         })}
         {session && (
-          <Link href={"/user_resource"} className="hover:opacity-60">
-            {"Resources"}
+          <Link
+            href={"/user_resource"}
+            className="hover:opacity-60 text-red-300"
+          >
+            my Resources
           </Link>
         )}
       </div>

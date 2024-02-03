@@ -38,9 +38,9 @@ function ResNavLinks(session: any): JSX.Element {
             {session?.session?.session && (
               <Link
                 href={"/user_resource"}
-                className="text-primary hover:bg-secondary w-full h-12 flex justify-center items-center transition-all duration-200"
+                className="text-red-300 hover:bg-secondary w-full h-12 flex justify-center items-center transition-all duration-200 "
               >
-                {"Resources"}
+                my Resources
               </Link>
             )}
           </div>

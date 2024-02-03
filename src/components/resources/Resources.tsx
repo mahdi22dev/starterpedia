@@ -1,17 +1,26 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import ResourceCardItem from "./ResourceCardItem";
 import { resourcesPagination } from "@/server-actions/resources-acions";
 import CartSkeleton from "../loading/CartSkeleton";
 import { Button } from "../ui/button";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import ClipLoader from "react-spinners/ClipLoader";
+import { toast } from "sonner";
 
-export default function RrsourcesContainer({ page }: { page: number }) {
+export default function RrsourcesContainer({
+  page,
+  type,
+}: {
+  page: number;
+  type: string;
+}) {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [resources, setResources] = useState([]);
-  const [pagination, setPagination] = useState<number>(page);
+  const [pagination, setPagination] = useState<number>(page || 0);
+  const [paginationType, setPaginationType] = useState<string>(type);
+  const isFirstMount = useRef(true);
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
@@ -29,22 +38,44 @@ export default function RrsourcesContainer({ page }: { page: number }) {
   const fetchData = async () => {
     try {
       setIsLoading(true);
-      const data: any = await resourcesPagination(pagination);
+      const data: any = await resourcesPagination(pagination, paginationType);
       const paginationData: any = [...resources, ...data];
       setResources(paginationData);
     } catch (error) {
+      toast.error("error fetching resources please try to refresh the page");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const fetchDataByType = async () => {
+    try {
+      setIsLoading(true);
+      const data: any = await resourcesPagination(pagination, paginationType);
+      setResources(data);
+    } catch (error) {
+      toast.error("error fetching resources please try to refresh the page");
     } finally {
       setIsLoading(false);
     }
   };
 
   useEffect(() => {
+    console.log("page changed");
+    setPagination(page);
     fetchData();
-  }, [searchParams]);
+  }, [searchParams.get("page")]);
 
   useEffect(() => {
-    setPagination(page);
-  }, [page]);
+    if (isFirstMount.current) {
+      isFirstMount.current = false;
+      return;
+    }
+    console.log("type changed");
+    setPagination(0);
+    setPaginationType(type);
+    fetchDataByType();
+  }, [searchParams.get("type")]);
 
   return (
     <div className="w-full flex flex-col justify-center items-center">
@@ -80,7 +111,7 @@ export default function RrsourcesContainer({ page }: { page: number }) {
           loading={isLoading}
           color="#fff"
         />
-        Load More
+        View More
       </Button>
     </div>
   );
