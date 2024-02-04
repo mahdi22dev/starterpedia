@@ -33,16 +33,22 @@ export default function RrsourcesHome() {
   return (
     <div className="w-full flex flex-col justify-center items-center">
       <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
-        {isLoading
-          ? Array.from({ length: 6 }).map((_, index) => {
-              return <CartSkeleton key={index} />;
-            })
-          : resources.map((card: any) => {
-              return <ResourceCardItem key={card.id} card={card} />;
-            })}
+        {isLoading ? (
+          Array.from({ length: 6 }).map((_, index) => {
+            return <CartSkeleton key={index} />;
+          })
+        ) : resources.length == 0 ? (
+          <p className="text-center mt-7 mx-auto">
+            Please sumbit a new resource by clicking sumbit new resource button
+            in top
+          </p>
+        ) : (
+          resources.map((card: any) => {
+            return <ResourceCardItem key={card.id} card={card} />;
+          })
+        )}
       </div>
-
-      {!isLoading && (
+      {resources.length !== 0 && !isLoading && (
         <Link
           className={cn(
             buttonVariants({ variant: "default" }),

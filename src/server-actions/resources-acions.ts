@@ -7,8 +7,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 export const resourcesPagination = async (page: number, type: string) => {
-  console.log(page);
-  console.log(type);
+  console.log(page, type);
   const pageSize = 6;
 
   let data;
@@ -21,12 +20,11 @@ export const resourcesPagination = async (page: number, type: string) => {
         select: { id: true, title: true, image: true, type: true },
       });
     } else {
+      // ...(type && { type }),
       data = await prisma.resources.findMany({
         take: pageSize,
         skip: page * pageSize,
-        where: {
-          ...(type && { type }),
-        },
+        where: {},
         select: { id: true, title: true, image: true, type: true },
       });
     }
