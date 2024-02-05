@@ -40,12 +40,11 @@ export default function RrsourcesContainer({
   );
 
   const fetchData = async () => {
+    setIsLoading(true);
     try {
-      setIsLoading(true);
       const data: any = await resourcesPagination(pagination, paginationType);
       const paginationData: any = [...resources, ...data];
       console.log(paginationData);
-
       setResources(paginationData);
     } catch (error) {
       toast.error("error fetching resources please try to refresh the page");
@@ -56,6 +55,8 @@ export default function RrsourcesContainer({
 
   const fetchDataByType = async () => {
     try {
+      setResources([]);
+      setPagination(0);
       setIsLoading(true);
       const data: any = await resourcesPagination(pagination, paginationType);
       setResources(data);
@@ -76,16 +77,25 @@ export default function RrsourcesContainer({
   }, [searchParams.get("page")]);
 
   useEffect(() => {
-    console.log("page changed to :", paginationType);
+    if (isFirstMount.current) {
+      isFirstMount.current = false;
+      return;
+    }
+  }, [searchParams.get("type")]);
+
+  useEffect(() => {
+    console.log("page changed to :", pagination);
+    fetchData();
+  }, [searchParams.get("page")]);
+
+  useEffect(() => {
+    console.log("type changed to :", paginationType);
 
     if (isFirstMount.current) {
       isFirstMount.current = false;
       return;
     }
-    console.log("type changed");
-    setPagination(0);
-    // setPaginationType(type);
-    // fetchDataByType();
+    fetchDataByType();
   }, [searchParams.get("type")]);
 
   return (
@@ -122,13 +132,20 @@ export default function RrsourcesContainer({
       </div>
       <div className="w-full flex flex-col justify-center items-center">
         <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
-          {isLoading
-            ? Array.from({ length: 6 }).map((_, index) => {
-                return <CartSkeleton key={index} />;
-              })
-            : resources.map((card: any) => {
-                return <ResourceCardItem key={card.id} card={card} />;
-              })}
+          {isLoading ? (
+            Array.from({ length: 6 }).map((_, index) => {
+              return <CartSkeleton key={index} />;
+            })
+          ) : resources.length == 0 ? (
+            <p className="text-center mt-7 mx-auto">
+              Please sumbit a new resource by clicking sumbit new resource
+              button in top
+            </p>
+          ) : (
+            resources.map((card: any) => {
+              return <ResourceCardItem key={card.id} card={card} />;
+            })
+          )}
         </div>
 
         {resources.length !== 0 && (

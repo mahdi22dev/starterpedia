@@ -20,11 +20,10 @@ export const resourcesPagination = async (page: number, type: string) => {
         select: { id: true, title: true, image: true, type: true },
       });
     } else {
-      // ...(type && { type }),
       data = await prisma.resources.findMany({
         take: pageSize,
         skip: page * pageSize,
-        where: {},
+        where: { ...(type && { type }) },
         select: { id: true, title: true, image: true, type: true },
       });
     }

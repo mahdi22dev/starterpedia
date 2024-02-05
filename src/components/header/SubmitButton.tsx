@@ -31,7 +31,7 @@ function SubmitButton({ className }: { className?: string }) {
         author: "Profile Link",
         description: "Lorem text",
         image: "bytes",
-        type: "Software",
+        type: "Articles",
       })
     );
   };
