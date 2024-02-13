@@ -95,7 +95,7 @@ export default function RrsourcesContainer({
 
   return (
     <>
-      <div className="flex flex-wrap gap-2 mx-auto mt-10 max-w-4xl items-center">
+      <div className="flex flex-wrap gap-2 mx-auto mt-10 max-w-4xl items-center justify-center">
         <Button
           onClick={() => updateType("all")}
           asChild
@@ -103,7 +103,15 @@ export default function RrsourcesContainer({
             !paginationType || paginationType == "all" ? "default" : "outline"
           }
         >
-          <Link href={"http://localhost:3000/resources?type=all"}>All</Link>
+          <Link
+            href={
+              process.env.NODE_ENV === "production"
+                ? process.env.NEXT_PUBLIC_ROOT_DOMAIN + "/resources?type=all"
+                : "http://localhost:3000/resources?type=all"
+            }
+          >
+            All
+          </Link>
         </Button>
         {ResourcesTypes.map((type) => {
           return (
@@ -114,7 +122,13 @@ export default function RrsourcesContainer({
                 variant={type.type == paginationType ? "default" : "outline"}
               >
                 <Link
-                  href={"http://localhost:3000/resources?type=" + type.type}
+                  href={
+                    process.env.NODE_ENV === "production"
+                      ? process.env.NEXT_PUBLIC_ROOT_DOMAIN +
+                        "/resources?type=" +
+                        type.type
+                      : "http://localhost:3000/resources?type=" + type.type
+                  }
                   key={type.id}
                 >
                   {type.type}
@@ -127,21 +141,18 @@ export default function RrsourcesContainer({
       </div>
       <div className="w-full flex flex-col justify-center items-center">
         <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
-          {isLoading ? (
-            Array.from({ length: resources.length || 6 }).map((_, index) => {
-              return <CartSkeleton key={index} />;
-            })
-          ) : resources.length == 0 ? (
-            <p className="text-center mt-7 mx-auto">
-              Please sumbit a new resource by clicking sumbit new resource
-              button in top
-            </p>
-          ) : (
-            resources.map((card: any) => {
-              return <ResourceCardItem key={card.id} card={card} />;
-            })
-          )}
+          {isLoading
+            ? Array.from({ length: resources.length || 6 }).map((_, index) => {
+                return <CartSkeleton key={index} />;
+              })
+            : resources.map((card: any) => {
+                return <ResourceCardItem key={card.id} card={card} />;
+              })}
         </div>
+
+        {resources.length == 0 && (
+          <p className="text-center mt-7 mx-auto">No resources found</p>
+        )}
 
         {isMoreVisible && resources.length !== 0 && (
           <Button
