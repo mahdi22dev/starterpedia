@@ -11,8 +11,11 @@ export async function Navbar(): Promise<JSX.Element> {
   const session = await getServerSession(authOptions);
   return (
     <nav className="hidden justify-between items-center px-3 py-3 md:px-10 md:py-1 max-w-7xl mx-auto md:flex">
-      <Link href={"/home"}>
-        <Image src={"/logo3.png"} width={130} height={100} alt="logo image" />
+      <Link
+        href={"/home"}
+        className="relative w-[130px] h-[100px] min-h-[100px] min-w-[130px]"
+      >
+        <Image src={"/logo3.png"} fill alt="logo image" />
       </Link>
 
       <div className="gap-2 capitalize flex">
