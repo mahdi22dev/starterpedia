@@ -9,8 +9,5 @@ export const ResourcesTypes = [
   { id: 2, type: "Articles" },
   { id: 3, type: "Videos" },
   { id: 4, type: "software" },
-  { id: 6, type: "type1" },
-  { id: 7, type: "type2" },
-  { id: 8, type: "type3" },
-  { id: 9, type: "type4" },
+  { id: 6, type: "Books" },
 ];

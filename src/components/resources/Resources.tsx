@@ -21,6 +21,7 @@ export default function RrsourcesContainer({
   type: string;
 }) {
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isMoreVisible, setIsMoreVisible] = useState<boolean>(true);
   const [resources, setResources] = useState([]);
   const [pagination, setPagination] = useState<number>(Number(page));
   const [paginationType, setPaginationType] = useState<string>(type || "all");
@@ -44,7 +45,11 @@ export default function RrsourcesContainer({
     try {
       const data: any = await resourcesPagination(pagination, paginationType);
       const paginationData: any = [...resources, ...data];
-      console.log(paginationData);
+      if (!data.length) {
+        setIsMoreVisible(false);
+      } else {
+        setIsMoreVisible(true);
+      }
       setResources(paginationData);
     } catch (error) {
       toast.error("error fetching resources please try to refresh the page");
@@ -59,6 +64,11 @@ export default function RrsourcesContainer({
       setPagination(0);
       setIsLoading(true);
       const data: any = await resourcesPagination(pagination, paginationType);
+      if (!data.length) {
+        setIsMoreVisible(false);
+      } else {
+        setIsMoreVisible(true);
+      }
       setResources(data);
     } catch (error) {
       toast.error("error fetching resources please try to refresh the page");
@@ -72,25 +82,10 @@ export default function RrsourcesContainer({
   };
 
   useEffect(() => {
-    console.log("page changed to :", pagination);
     fetchData();
   }, [searchParams.get("page")]);
 
   useEffect(() => {
-    if (isFirstMount.current) {
-      isFirstMount.current = false;
-      return;
-    }
-  }, [searchParams.get("type")]);
-
-  useEffect(() => {
-    console.log("page changed to :", pagination);
-    fetchData();
-  }, [searchParams.get("page")]);
-
-  useEffect(() => {
-    console.log("type changed to :", paginationType);
-
     if (isFirstMount.current) {
       isFirstMount.current = false;
       return;
@@ -133,7 +128,7 @@ export default function RrsourcesContainer({
       <div className="w-full flex flex-col justify-center items-center">
         <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
           {isLoading ? (
-            Array.from({ length: 6 }).map((_, index) => {
+            Array.from({ length: resources.length || 6 }).map((_, index) => {
               return <CartSkeleton key={index} />;
             })
           ) : resources.length == 0 ? (
@@ -148,7 +143,7 @@ export default function RrsourcesContainer({
           )}
         </div>
 
-        {resources.length !== 0 && (
+        {isMoreVisible && resources.length !== 0 && (
           <Button
             variant={"default"}
             className="flex gap-2 w-40 mx-auto mt-5"

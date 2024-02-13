@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { LuExternalLink } from "react-icons/lu";
-import { useDispatch } from "react-redux";
+import { CldImage } from "next-cloudinary";
 import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
 import { badgeVariants } from "../ui/badge";
@@ -19,7 +19,6 @@ export default function ResourceCardItem({
   card: userResourceCardTypes;
 }) {
   const router = useRouter();
-
   const onClick = () => {
     router.push("/" + card.id, { scroll: false });
   };
@@ -31,15 +30,11 @@ export default function ResourceCardItem({
         onClick={onClick}
       >
         <div className="relative w-full h-[75%] ">
-          <Image
-            src={
-              "https://images.unsplash.com/photo-1571171637578-41bc2dd41cd2?q=80&w=300&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-            }
-            alt={card.title}
+          <CldImage
+            // @ts-ignore
+            src={card.image}
             fill
-            className="mx-auto mt-1 z-10"
-            loading="lazy"
-            objectFit="cover"
+            alt={card.title}
           />
         </div>
 

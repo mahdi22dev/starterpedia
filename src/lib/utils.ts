@@ -1,5 +1,7 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { getCldOgImageUrl } from "next-cloudinary";
+
 export async function generatePassword() {
   const charset =
     "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_=+";
@@ -26,3 +28,9 @@ export function cn(...inputs: ClassValue[]) {
 //     return false;
 //   }
 // };
+
+export const getImageUrl = (source: string) => {
+  return getCldOgImageUrl({
+    src: source,
+  });
+};

@@ -9,7 +9,6 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card";
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { ResourceFormData } from "@/lib/types";
@@ -35,6 +34,8 @@ import { ResourcesTypes } from "@/lib/data";
 export default function ResourceCardForm(): JSX.Element {
   const [selectValue, setSelectValue] = useState<string>("software");
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [file, setFile] = useState<string>("");
+
   const dispatch: AppDispatch = useDispatch();
 
   const closeModal = (): void => {
@@ -49,11 +50,29 @@ export default function ResourceCardForm(): JSX.Element {
     resolver: zodResolver(resourceFormSchema),
   });
 
-  const onSubmit = async (data: ResourceFormData) => {
-    const resourceRequestData = { ...data, type: selectValue };
-    setIsLoading(true);
+  const handleFileChange = (event: any) => {
+    console.log(event.target.files[0]);
+    setFile(event.target.files[0]);
+  };
 
+  const onSubmit = async (data: ResourceFormData) => {
+    const url = "https://api.cloudinary.com/v1_1/drahmcxfo/image/upload";
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "vlesmt4z");
+
+    setIsLoading(true);
     try {
+      const imageUploadResponse = await fetch(url, {
+        method: "POST",
+        body: formData,
+      });
+      const imageUploadJson = await imageUploadResponse.json();
+      const resourceRequestData = {
+        ...data,
+        type: selectValue,
+        image: imageUploadJson?.public_id,
+      };
       await saveNewResource(JSON.stringify(resourceRequestData));
       toast.success("Resources submited successfully");
       closeModal();
@@ -166,6 +185,7 @@ export default function ResourceCardForm(): JSX.Element {
               {...register("image")}
               accept="image/*,.png"
               disabled={isLoading}
+              onChange={handleFileChange}
             />
             {errors?.image && (
               <p className="px-1 text-xs text-red-600">

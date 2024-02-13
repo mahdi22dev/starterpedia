@@ -4,7 +4,6 @@ import SearchModal from "./SearchModal";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/redux/store";
 import ResourceCardForm from "../resources/ResourceCardForm";
-import ResourceCard from "../resources/ResourceCard";
 
 function Modal() {
   const {

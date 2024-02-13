@@ -5,6 +5,13 @@ import { prisma } from "../lib/prisma";
 import { authOptions } from "@/services/auth/auth.service";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { v2 as cloudinary } from "cloudinary";
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 export const resourcesPagination = async (page: number, type: string) => {
   console.log(page, type);
@@ -17,14 +24,14 @@ export const resourcesPagination = async (page: number, type: string) => {
         take: pageSize,
         skip: page * pageSize,
         where: {},
-        select: { id: true, title: true, image: true, type: true },
+        select: { id: true, title: true, image: true, type: true, url: true },
       });
     } else {
       data = await prisma.resources.findMany({
         take: pageSize,
         skip: page * pageSize,
         where: { ...(type && { type }) },
-        select: { id: true, title: true, image: true, type: true },
+        select: { id: true, title: true, image: true, type: true, url: true },
       });
     }
 
@@ -41,7 +48,7 @@ export const homeResources = async () => {
       take: 6,
       skip: 0,
       where: {},
-      select: { id: true, title: true, image: true, type: true },
+      select: { id: true, title: true, image: true, type: true, url: true },
     });
 
     return data;
@@ -54,14 +61,14 @@ export const homeResources = async () => {
 export const saveNewResource = async (data: any) => {
   try {
     const DataObject = JSON.parse(data);
+    console.log(DataObject);
+
     const session = await getServerSession(authOptions);
     if (!session) {
       return redirect("/login");
     }
     //@ts-ignore
     const userId = session?.user?.id;
-    console.log(userId);
-
     if (data) {
       await prisma.resources.create({
         data: {
@@ -70,7 +77,7 @@ export const saveNewResource = async (data: any) => {
           name: DataObject.name,
           url: DataObject.url,
           description: DataObject.description,
-          image: "image bytes",
+          image: DataObject.image,
           type: DataObject.type,
           user: {
             connect: {
@@ -101,6 +108,7 @@ export const getUsersResource = async () => {
         title: true,
         image: true,
         type: true,
+        url: true,
       },
     });
 
@@ -120,7 +128,7 @@ export const removeResources = async (resourceId: number) => {
     if (!session) {
       return redirect("/login");
     }
-    await prisma.resources.delete({ where: { id: resourceId } });
+    await prisma.resources.deleteMany({ where: { id: resourceId } });
   } catch (error: any) {
     console.log(error.message);
   } finally {
