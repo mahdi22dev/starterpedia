@@ -10,4 +10,5 @@ export const ResourcesTypes = [
   { id: 3, type: "Videos" },
   { id: 4, type: "software" },
   { id: 6, type: "Books" },
+  { id: 5, type: "Tweets" },
 ];

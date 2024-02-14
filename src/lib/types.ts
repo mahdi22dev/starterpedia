@@ -9,7 +9,7 @@ export type LogInFormData = z.infer<typeof userAuthLoginSchema>;
 export type RegisterFormData = z.infer<typeof userAuthRigsterSchema>;
 export type ResourceFormData = z.infer<typeof resourceFormSchema>;
 export type userResourceTypes = {
-  id: number;
+  id: string;
   title: string;
   image: String;
   type: String;
@@ -17,7 +17,7 @@ export type userResourceTypes = {
 }[];
 
 export type userResourceCardTypes = {
-  id: number;
+  id: string;
   title: string;
   author: string;
   url: string;

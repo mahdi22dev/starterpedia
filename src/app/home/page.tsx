@@ -9,7 +9,7 @@ export default function Home(): JSX.Element {
       <h1 className="text-2xl md:text-3xl mb-4 font-normal text-center">
         Latest Resources
       </h1>
-      <RrsourcesHome />
+      {/* <RrsourcesHome /> */}
     </main>
   );
 }
