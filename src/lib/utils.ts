@@ -1,6 +1,7 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { getCldOgImageUrl } from "next-cloudinary";
+import moment from "moment";
 
 export async function generatePassword() {
   const charset =
@@ -34,3 +35,12 @@ export const getImageUrl = (source: string) => {
     src: source,
   });
 };
+
+export function formatDate(dateObject: Date): string {
+  const momentDate = moment(dateObject);
+
+  // Format the date using Moment.js
+  const formattedDate = momentDate.format("YYYY-MM-DD");
+
+  return formattedDate;
+}

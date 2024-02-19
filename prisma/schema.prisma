@@ -35,7 +35,7 @@ model NewsLetter {
 }
 
 model Resources {
-  id          String @id @default(uuid())
+  id          String   @id @default(uuid())
   title       String
   name        String
   author      String
@@ -43,8 +43,10 @@ model Resources {
   description String
   image       String
   type        String
-  user        User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  published   DateTime @default(now())
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId      String
+  accepted    Boolean  @default(false)
 
   @@index([id])
   @@index([userId])

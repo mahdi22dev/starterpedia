@@ -43,7 +43,7 @@ export default function ResourceCardItem({
           onClick={(e) => e.stopPropagation()}
         >
           <Button asChild variant="outline">
-            <Link href={"/type?t=" + card.type}>{card.type}</Link>
+            <Link href={"/resources?type=" + card.type}>{card.type}</Link>
           </Button>
           <div className="text-center my-1 capitalize font-normal ">
             {card.title}

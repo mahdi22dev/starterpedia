@@ -7,8 +7,9 @@ import ResNavbar from "@/components/header/ResNavbar";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/services/auth/auth.service";
 import { Kanit } from "next/font/google";
+import NextTopLoader from "nextjs-toploader";
 
-const damion = Kanit({
+const kanit = Kanit({
   weight: ["400"],
   style: ["normal"],
   preload: false,
@@ -27,11 +28,15 @@ export default async function RootLayout({
 }): Promise<JSX.Element> {
   const session = await getServerSession(authOptions);
   return (
-    <html lang="en" className={damion.className}>
+    <html lang="en" className={kanit.className}>
       <Providers>
-        {/*@ts-ignore */}
-
         <body>
+          <NextTopLoader
+            color="#F97316"
+            initialPosition={0.08}
+            crawlSpeed={200}
+            height={3}
+          />
           {/*@ts-ignore */}
           <Modal />
           {/*@ts-ignore */}

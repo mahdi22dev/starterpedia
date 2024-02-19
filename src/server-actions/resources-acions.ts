@@ -115,7 +115,7 @@ export const getUsersResource = async () => {
   }
 };
 
-export const removeResources = async (resourceId: number) => {
+export const removeResources = async (resourceId: string) => {
   try {
     const session = await getServerSession(authOptions);
     if (!session) {
@@ -129,7 +129,7 @@ export const removeResources = async (resourceId: number) => {
   }
 };
 
-export const getResourceById = async (resourceId: number) => {
+export const getResourceById = async (resourceId: string) => {
   try {
     const session = await getServerSession(authOptions);
     if (!session) {

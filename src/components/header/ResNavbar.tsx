@@ -12,7 +12,7 @@ export function ResNavbar(session: any): JSX.Element {
     <nav className="flex justify-between items-center px-3 py-3 md:px-10 md:py-1 max-w-7xl mx-auto md:hidden">
       <Link
         href={"/home"}
-        className="relative w-[130px] h-[100px] min-h-[100px] min-w-[130px]"
+        className="relative w-[130px] h-[85px] min-h-[85px] min-w-[130px]"
       >
         <Image src={"/logo3.png"} fill alt="logo image" />
       </Link>
