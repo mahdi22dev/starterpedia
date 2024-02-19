@@ -80,19 +80,19 @@ export const authOptions: NextAuthOptions = {
   },
 };
 
-export const ServerSession = async () => {
-  return getServerSession(authOptions) as Promise<{
-    user: {
-      id: string;
-      name: string;
-      username: string;
-      email: string;
-      image: string;
-    };
-  } | null>;
-};
+// export const ServerSession = async () => {
+//   return getServerSession(authOptions) as Promise<{
+//     user: {
+//       id: string;
+//       name: string;
+//       username: string;
+//       email: string;
+//       image: string;
+//     };
+//   } | null>;
+// };
 
-export const ClientSession = () => {
-  const session: any = useSession();
-  return session.data?.user;
-};
+// export const ClientSession = () => {
+//   const session: any = useSession();
+//   return session.data?.user;
+// };

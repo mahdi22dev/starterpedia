@@ -54,8 +54,6 @@ export const homeResources = async () => {
 export const saveNewResource = async (data: any) => {
   try {
     const DataObject = JSON.parse(data);
-    console.log(DataObject);
-
     const session = await getServerSession(authOptions);
     if (!session) {
       return redirect("/login");
