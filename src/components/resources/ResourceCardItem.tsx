@@ -42,9 +42,9 @@ export default function ResourceCardItem({
           className="w-full flex justify-between items-center p-2"
           onClick={(e) => e.stopPropagation()}
         >
-          <Button asChild variant="outline">
+          {/* <Button asChild variant="outline">
             <Link href={"/resources?type=" + card.type}>{card.type}</Link>
-          </Button>
+          </Button> */}
           <div className="text-center my-1 capitalize font-normal ">
             {card.title}
           </div>
