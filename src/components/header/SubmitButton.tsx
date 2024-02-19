@@ -38,14 +38,14 @@ function SubmitButton({ className }: { className?: string }) {
 
   return (
     <>
-      <Button
+      {/* <Button
         variant={"default"}
         onClick={() => {
           onSubmit();
         }}
       >
         add random resource
-      </Button>{" "}
+      </Button>{" "} */}
       <Button
         onClick={openResource}
         variant={"secondary"}
