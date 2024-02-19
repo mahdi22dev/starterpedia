@@ -1,8 +1,7 @@
 "use server";
 
-import { getServerSession } from "next-auth";
 import { prisma } from "../lib/prisma";
-import { authOptions } from "@/services/auth/auth.service";
+import { ServerSession } from "@/services/auth/auth.service";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
@@ -54,11 +53,11 @@ export const homeResources = async () => {
 export const saveNewResource = async (data: any) => {
   try {
     const DataObject = JSON.parse(data);
-    const session = await getServerSession(authOptions);
+    const session = await ServerSession();
     if (!session) {
       return redirect("/login");
     }
-    //@ts-ignore
+
     const userId = session?.user?.id;
     if (data) {
       await prisma.resources.create({
@@ -86,11 +85,10 @@ export const saveNewResource = async (data: any) => {
 };
 export const getUsersResource = async () => {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await ServerSession();
     if (!session) {
       return redirect("/login");
     }
-    //@ts-ignore
     const userId = session?.user?.id;
     const data = await prisma.resources.findMany({
       where: { userId: userId },
@@ -115,7 +113,7 @@ export const getUsersResource = async () => {
 
 export const removeResources = async (resourceId: string) => {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await ServerSession();
     if (!session) {
       return redirect("/login");
     }
@@ -129,7 +127,7 @@ export const removeResources = async (resourceId: string) => {
 
 export const getResourceById = async (resourceId: string) => {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await ServerSession();
     if (!session) {
       return redirect("/login");
     }

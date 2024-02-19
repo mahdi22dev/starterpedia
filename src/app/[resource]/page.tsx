@@ -19,11 +19,12 @@ async function Resource({ params }: { params: { resource: string } }) {
 
   return (
     <main className="flex flex-col gap-4 justify-start max-w-7xl mx-auto min-h-screen p-10">
-      <div className="relative w-full h-96 rounded-sm">
+      <div className="relative w-full h-96 rounded-md shadow-2xl ">
         <Image
           src={getImageUrl(cardData.image)}
           alt={cardData.title}
           fill
+          className="rounded"
         ></Image>
       </div>
       <h1 className="text-4xl capitalize">{cardData.title}</h1>

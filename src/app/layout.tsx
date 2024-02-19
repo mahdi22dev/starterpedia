@@ -8,6 +8,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/services/auth/auth.service";
 import { Kanit } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
+import { Footer } from "@/components/footer/Footer";
 
 const kanit = Kanit({
   weight: ["400"],
@@ -43,6 +44,7 @@ export default async function RootLayout({
           <Navbar />
           <ResNavbar session={session} />
           {children}
+          <Footer />
         </body>
       </Providers>
     </html>

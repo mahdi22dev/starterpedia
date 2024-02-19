@@ -1,7 +1,5 @@
 "use client";
 
-import Image from "next/image";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { LuExternalLink } from "react-icons/lu";
 import { CldImage } from "next-cloudinary";
@@ -11,30 +9,28 @@ import { badgeVariants } from "../ui/badge";
 import { Card } from "../ui/card";
 import { userResourceCardTypes } from "@/lib/types";
 import { ResourceRemoveAlert } from "./ResourceRemoveAlert";
-import { useRouter } from "next/navigation";
 
 export default function ResourceCardItem({
   card,
 }: {
   card: userResourceCardTypes;
 }) {
-  const router = useRouter();
   const onClick = () => {
-    router.push("/" + card.id, { scroll: false });
+    window.location.href = "/" + card.id;
   };
   const pathname = usePathname();
   return (
     <div className="relative">
       <Card
-        className="h-96 cursor-pointer flex justify-between flex-col"
+        className="h-96 cursor-pointer flex justify-between flex-col shadow-none hover:shadow-xl"
         onClick={onClick}
       >
         <div className="relative w-full h-[75%] ">
           <CldImage
-            // @ts-ignore
-            src={card.image}
+            src={String(card.image)}
             fill
             alt={card.title}
+            aspectRatio={9 / 16}
           />
         </div>
 

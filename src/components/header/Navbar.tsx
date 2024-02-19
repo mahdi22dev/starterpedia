@@ -41,7 +41,13 @@ export async function Navbar(): Promise<JSX.Element> {
       </div>
 
       <div className="flex gap-6 items-center">
-        <SubmitButton />
+        {session ? (
+          <SubmitButton />
+        ) : (
+          <Button asChild variant={"secondary"}>
+            <Link href={"/login"}>Submit New Resource</Link>
+          </Button>
+        )}
         {session ? (
           <SignOutButton />
         ) : (
