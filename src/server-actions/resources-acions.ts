@@ -6,7 +6,6 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 export const resourcesPagination = async (page: number, type: string) => {
-  console.log(page, type);
   const pageSize = 6;
 
   let data;
@@ -135,6 +134,19 @@ export const getResourceById = async (resourceId: string) => {
       where: { id: resourceId },
     });
     return data;
+  } catch (error: any) {
+    console.log(error.message);
+  } finally {
+    await prisma.$disconnect();
+  }
+};
+
+export const SearchQueries = async (search: string) => {
+  try {
+    const results = await prisma.resources.findMany({
+      where: { title: { search: search }, description: { search: search } },
+    });
+    return results;
   } catch (error: any) {
     console.log(error.message);
   } finally {

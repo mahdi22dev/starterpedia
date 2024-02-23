@@ -5,6 +5,8 @@ async function Search({
 }: {
   searchParams: { s: string };
 }): Promise<JSX.Element> {
+  const searchQuery = searchParams.s || "";
+
   return <div>you searched for:{searchParams?.s} </div>;
 }
 
