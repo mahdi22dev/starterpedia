@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 
 export default function About(): JSX.Element {
   return (
@@ -15,7 +14,7 @@ export default function About(): JSX.Element {
       <p className="mx-auto mt-[5%]">
         Starterpedia is a community-driven platform dedicated to sharing
         valuable resources and links across various fields, catering to
-        freelancers, programmers, and enthusiasts alike. Whether you're a
+        freelancers, programmers, and enthusiasts alike. Whether you&apos;re a
         seasoned professional or just starting out, Starterpedia provides a
         diverse array of curated content to help you excel in your endeavors.
         From programming tutorials and development tools to freelancing tips and
