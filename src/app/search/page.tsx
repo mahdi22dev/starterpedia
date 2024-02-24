@@ -1,4 +1,5 @@
 import ResourceCardItem from "@/components/resources/ResourceCardItem";
+import SearchButton from "@/components/search/SearchButton";
 import { SearchQueries } from "@/server-actions/resources-acions";
 import React from "react";
 
@@ -14,7 +15,10 @@ async function Search({
 
   return (
     <div className="w-full space-y-5 min-h-[100vh] p-5 max-w-7xl mx-auto">
-      <p>You searched for :{searchParams?.s} </p>
+      <div className="flex justify-start items-center gap-2">
+        You searched for: {searchParams?.s} <SearchButton />
+      </div>
+
       <div className="w-full flex flex-col justify-center items-center">
         <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
           {results.map((card: any) => {
