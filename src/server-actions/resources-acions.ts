@@ -144,7 +144,12 @@ export const getResourceById = async (resourceId: string) => {
 export const SearchQueries = async (search: string) => {
   try {
     const results = await prisma.resources.findMany({
-      where: { title: { search: search }, description: { search: search } },
+      where: {
+        OR: [
+          { title: { search: search } },
+          { description: { search: search } },
+        ],
+      },
     });
     return results;
   } catch (error: any) {

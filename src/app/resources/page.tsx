@@ -5,14 +5,6 @@ export default async function Resources({
 }: {
   searchParams: { type: string; page: number };
 }): Promise<JSX.Element> {
-  // href={
-  //   !process.env.NEXT_PUBLIC_NODE_ENV
-  //     ? "http://localhost:3000/home?type=" + type.type
-  //     : process.env.NEXT_PUBLIC_VERCEL_DEPLOYMENT +
-  //       "/home?type=all" +
-  //       type.type
-  // }
-
   const page = searchParams.page || 0;
 
   return (
