@@ -17,7 +17,12 @@ export function Footer(): JSX.Element {
             <Link href="/resources">Resources</Link>
           </li>
           <li className="ml-4">
-            <Link href="/privacy">Privacy terms</Link>
+            <Link
+              href="https://www.termsfeed.com/live/9e4f92ff-1d04-420b-9f8b-b21de1affb5f"
+              target="_blank"
+            >
+              Privacy terms
+            </Link>
           </li>
         </ul>
       </div>
