@@ -29,7 +29,6 @@ DIRECT_URL=postgres://postgres:mahdi2019@127.0.0.1:5432/starterpedia
 - **NEXTAUTH_SECRET**: A secret key used by NextAuth.js for encrypting sessions. Replace `your-secret` with a secure, randomly generated string.
 - **DATABASE_URL**: The connection string for your PostgreSQL database.
 - **DIRECT_URL**: Direct connection string for your PostgreSQL database (used for specific database operations).
-
+- 
 ---
 
-This section is concise and provides clear instructions for setting up the `.env` file. Let me know if you need further adjustments!
