@@ -22,8 +22,8 @@ Create a `.env` file in the root of your project and add the following variables
 
 ```env
 NEXTAUTH_SECRET=your-secret
-DATABASE_URL=postgres://postgres:mahdi2019@127.0.0.1:5432/starterpedia
-DIRECT_URL=postgres://postgres:mahdi2019@127.0.0.1:5432/starterpedia
+DATABASE_URL=postgres://postgres:password@127.0.0.1:5432/starterpedia
+DIRECT_URL=postgres://postgres:password@127.0.0.1:5432/starterpedia
 ```
 
 - **NEXTAUTH_SECRET**: A secret key used by NextAuth.js for encrypting sessions. Replace `your-secret` with a secure, randomly generated string.
